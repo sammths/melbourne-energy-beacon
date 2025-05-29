@@ -28,6 +28,22 @@ pipeline {
                 bat 'npm audit --audit-level=low || exit /b 0'
             }
         }
+        stage('SonarCloud Analysis') {
+            steps {
+                echo 'Running SonarCloud scan...'
+                bat 'curl -L -o sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-windows.zip'
+                bat 'powershell -Command "Expand-Archive sonar-scanner.zip -DestinationPath . -Force"'
+                bat '''
+                set PATH=%CD%\\sonar-scanner-5.0.1.3006-windows\\bin;%PATH%
+                sonar-scanner.bat ^
+                  -Dsonar.projectKey=YOUR_PROJECT_KEY ^
+                  -Dsonar.organization=YOUR_ORG_KEY ^
+                  -Dsonar.sources=. ^
+                  -Dsonar.host.url=https://sonarcloud.io ^
+                  -Dsonar.login=YOUR_TOKEN
+                '''
+            }
+        }
         stage('Deploy') {
             steps {
                 echo 'Deploying app to test environment...'
