@@ -42,11 +42,11 @@ pipeline {
                 bat '''
                 set PATH=%CD%\\sonar-scanner-5.0.1.3006-windows\\bin;%PATH%
                 sonar-scanner.bat ^
-                  -Dsonar.projectKey=YOUR_PROJECT_KEY ^
-                  -Dsonar.organization=YOUR_ORG_KEY ^
+                  -Dsonar.projectKey=sammths_melbourne-energy-beacon ^
+                  -Dsonar.organization=sammths ^
                   -Dsonar.sources=. ^
                   -Dsonar.host.url=https://sonarcloud.io ^
-                  -Dsonar.login=YOUR_TOKEN
+                  -Dsonar.login=97e1aec8b4238b24bf73a4cc5a97b38f87a3681b
                 '''
             }
         }
