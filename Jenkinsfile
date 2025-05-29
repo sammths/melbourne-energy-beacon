@@ -9,6 +9,12 @@ pipeline {
                 bat 'npm run build'
             }
         }
+        stage('Docker Build') {
+            steps {
+                echo 'Building Docker image...'
+                bat 'docker build -t melbourne-energy-beacon:latest .'
+            }
+        }
         stage('Test') {
             steps {
                 echo 'Running tests...'
@@ -36,11 +42,11 @@ pipeline {
                 bat '''
                 set PATH=%CD%\\sonar-scanner-5.0.1.3006-windows\\bin;%PATH%
                 sonar-scanner.bat ^
-                  -Dsonar.projectKey=sammths_melbourne-energy-beacon ^
-                  -Dsonar.organization=sammths ^
+                  -Dsonar.projectKey=YOUR_PROJECT_KEY ^
+                  -Dsonar.organization=YOUR_ORG_KEY ^
                   -Dsonar.sources=. ^
                   -Dsonar.host.url=https://sonarcloud.io ^
-                  -Dsonar.login=2b6d661adbb1f8c022cf187e8131121f7c5e22db
+                  -Dsonar.login=YOUR_TOKEN
                 '''
             }
         }
